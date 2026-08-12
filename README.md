@@ -23,8 +23,11 @@ CD-B-Terraform-Industry-Standard/
                 ├── 01_ARCHITECTURE_AND_MODULE_DESIGN.md
                 ├── 02_BRANCHING_AND_GOVERNANCE_SOP.md
                 ├── 03_README_AND_DOCS_STANDARDS.md
-                ├── 04_SECURITY_COMPLIANCE_AND_DR.md
-                └── 05_ARCHITECTURAL_DECISION_RECORDS.md
+                ├── 04_GREENFIELD_PROJECT_BOOTSTRAP_CHECKLIST.md
+                ├── 05_SECURITY_COMPLIANCE_AND_DR_STANDARDS.md
+                ├── 06_TERRAFORM_LINTING_TESTING_AND_SECURITY_PIPELINES.md
+                ├── 07_STATE_BACKEND_AND_LOCKING_SOP.md
+                └── 08_ARCHITECTURAL_DECISION_RECORDS_ADR.md
 ```
 
 ---
@@ -33,12 +36,15 @@ CD-B-Terraform-Industry-Standard/
 
 | Skill / Reference Document | Focus Area & Content | Target Audience |
 | :--- | :--- | :--- |
-| 🎯 [**`SKILL.md`**](./.agents/skills/iac-gold-standard/SKILL.md) | **Main Custom Skill:** Trigger rules, core 4-layer principles, DRY submodule creation workflow. | AI Assistants, All Engineers |
+| 🎯 [**`SKILL.md`**](./.agents/skills/iac-gold-standard/SKILL.md) | **Main Custom Skill:** Trigger rules, 4-layer principles, DRY submodule workflow, gotchas & handover templates. | AI Assistants, All Engineers |
 | 📘 [**`01_ARCHITECTURE_AND_MODULE_DESIGN.md`**](./.agents/skills/iac-gold-standard/references/01_ARCHITECTURE_AND_MODULE_DESIGN.md) | **Architecture & Module Rules:** 4-layer AWS account mapping, DRY `.tfvars` parameterization, `for_each` feature flags. | Cloud Architects |
 | 🌿 [**`02_BRANCHING_AND_GOVERNANCE_SOP.md`**](./.agents/skills/iac-gold-standard/references/02_BRANCHING_AND_GOVERNANCE_SOP.md) | **Git Promotion & CAB Gates:** Hierarchy (`dev` → `staging` → `main` → `prod`) and CAB ticket approval rules. | DevOps Leads |
-| 📄 [**`03_README_AND_DOCS_STANDARDS.md`**](./.agents/skills/iac-gold-standard/references/03_README_AND_DOCS_STANDARDS.md) | **Documentation Standards:** Submodule `README.md` layout & markdown standards. | All Engineers |
-| 🛡️ [**`04_SECURITY_COMPLIANCE_AND_DR.md`**](./.agents/skills/iac-gold-standard/references/04_SECURITY_COMPLIANCE_AND_DR.md) | **PCI-DSS & DR Standards:** Technical safeguards for PCI-DSS v4.0, KMS CMK rotation, and multi-region DR targets. | Security Leads |
-| 💡 [**`05_ARCHITECTURAL_DECISION_RECORDS.md`**](./.agents/skills/iac-gold-standard/references/05_ARCHITECTURAL_DECISION_RECORDS.md) | **ADR Summary:** Explicit rationale behind decisions (ADR-01 to ADR-07). | Architects, PMs |
+| 📄 [**`03_README_AND_DOCS_STANDARDS.md`**](./.agents/skills/iac-gold-standard/references/03_README_AND_DOCS_STANDARDS.md) | **Documentation Standards:** Submodule `README.md` layout, `docs/` folder rules, markdown standards. | All Engineers |
+| 📋 [**`04_GREENFIELD_PROJECT_BOOTSTRAP_CHECKLIST.md`**](./.agents/skills/iac-gold-standard/references/04_GREENFIELD_PROJECT_BOOTSTRAP_CHECKLIST.md) | **Initiation Checklist:** 15-minute operational checklist when bootstrapping a new client project. | Project Leads, Engineers |
+| 🛡️ [**`05_SECURITY_COMPLIANCE_AND_DR_STANDARDS.md`**](./.agents/skills/iac-gold-standard/references/05_SECURITY_COMPLIANCE_AND_DR_STANDARDS.md) | **PCI-DSS & DR Standards:** Technical safeguards for PCI-DSS v4.0, KMS CMK rotation, and multi-region DR targets. | Security Leads |
+| 🤖 [**`06_TERRAFORM_LINTING_TESTING_AND_SECURITY_PIPELINES.md`**](./.agents/skills/iac-gold-standard/references/06_TERRAFORM_LINTING_TESTING_AND_SECURITY_PIPELINES.md) | **CI/CD & Security Scanning:** Pre-commit hooks, `checkov`, `tfsec`, `tflint`, `infracost` cost estimation, and GitHub Actions workflows. | DevOps Engineers |
+| 🔒 [**`07_STATE_BACKEND_AND_LOCKING_SOP.md`**](./.agents/skills/iac-gold-standard/references/07_STATE_BACKEND_AND_LOCKING_SOP.md) | **State Backend & Locking SOP:** Native S3 state locking (`use_lockfile = true`), encryption/versioning, stuck lock recovery. | Operations |
+| 💡 [**`08_ARCHITECTURAL_DECISION_RECORDS_ADR.md`**](./.agents/skills/iac-gold-standard/references/08_ARCHITECTURAL_DECISION_RECORDS_ADR.md) | **Architectural Decision Records (ADR):** Explicit context, decisions, rationale, and business benefits (ADR-01 to ADR-07). | Architects, Team Leads |
 
 ---
 

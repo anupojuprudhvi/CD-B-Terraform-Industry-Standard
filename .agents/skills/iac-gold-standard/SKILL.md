@@ -1,6 +1,6 @@
 ---
 name: iac-gold-standard
-description: Enterprise AWS Terraform IaC Gold Standard blueprint, 4-layer multi-account architecture, DRY single-directory modules with for_each feature flags, PCI-DSS v4.0 controls, and CAB governance branching.
+description: Enterprise AWS Terraform IaC Gold Standard blueprint, 4-layer multi-account architecture, DRY single-directory modules with for_each feature flags, PCI-DSS v4.0 controls, technical gotchas, daily handover reports, and CAB governance branching.
 ---
 
 # Enterprise AWS Terraform IaC Gold Standard Skill
@@ -20,27 +20,41 @@ Use this skill whenever creating a new Terraform module, refactoring an existing
 
 ---
 
-## 2. 📂 Submodule Creation Workflow
+## ⚡ 2. Technical Gotchas & Field Safeguards
 
-When adding or developing a new module:
+- **VPC Flow Logs:** S3 bucket encryption MUST be SSE-S3 (`AES256`), not SSE-KMS (`aws:kms`). S3 log delivery fails with `Access Denied` on KMS buckets without explicit cross-account KMS key policy grants.
+- **Secrets Manager Recovery Window:** Immediately re-creating a destroyed secret with the same name fails with `InvalidRequestException`. Force-delete first: `aws secretsmanager delete-secret --secret-id <name> --force-delete-without-recovery`.
+- **EKS EBS CSI Addon:** Always add `timeouts { create = "40m" }` to prevent 20-minute resource provisioning timeouts.
+- **Aurora Global Database:** Global cluster identifiers cannot be retrofitted to existing clusters; create primary clusters with `global_cluster_identifier` set at creation time.
+- **Keycloak Health Checks:** Management health checks run on **port 9000** (not app port 8080). ALB Security Groups must allow egress to both 8080 & 9000.
 
-1. **Submodule Directory:** Create `modules/<module-name>/` containing `main.tf`, `variables.tf`, `outputs.tf`, `README.md`.
-2. **Parent Invocation:** Register in parent layer `main.tf`:
-   ```hcl
-   locals {
-     deploy_modules = {
-       my_module = var.enable_modules.my_module ? { my_module = {} } : {}
-     }
-   }
+---
 
-   module "my_module" {
-     for_each = local.deploy_modules.my_module
-     source   = "./modules/my-module"
-     ...
-   }
-   ```
-3. **Parameter Input:** Add boolean toggle in `variables.tf` and environment configs in `dev.tfvars` / `prod.tfvars`.
-4. **Format & Validate:** Run `terraform fmt -recursive` and `terraform validate`.
+## 📋 3. Daily Task & Engineering Handover Report Standard
+
+When concluding work or generating daily progress updates for delivery leads, format output using this template:
+
+```markdown
+### 📝 Daily Progress & Engineering Handover Report
+
+- **Date:** YYYY-MM-DD
+- **Target Repository & Branch:** `<repo-name>` (`<branch-name>`)
+- **Key Accomplishments:**
+  - [x] Implemented `<component/module>` following DRY `.tfvars` pattern.
+  - [x] Passed local validation (`terraform fmt`, `terraform validate`, `checkov`).
+- **Drift Audit & Verification Status:** 0 resource drift detected across state files.
+- **Next Steps & Blockers:**
+  - [ ] Execute `terraform plan` against target AWS account upon SSO login.
+```
+
+---
+
+## 🚫 4. Explicit "What NOT To Do" Guardrails
+
+- **Do NOT** place EC2 or EKS nodes in public subnets (Private Subnets only).
+- **Do NOT** hardcode AWS account IDs, VPC IDs, or passwords in `.tf` files (use `data.tf` lookups & AWS Secrets Manager).
+- **Do NOT** bypass git hooks or force-push to `main`/`prod` branches (`git push --force` prohibited).
+- **Do NOT** commit `.env` or `.pem` key files containing plaintext credentials.
 
 ---
 
