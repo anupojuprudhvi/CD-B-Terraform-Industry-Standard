@@ -35,10 +35,6 @@ Every project must be segregated into 4 independent architectural layers, matchi
 
 ## 2. Module Design Pattern: DRY Single-Directory + `.tfvars`
 
-### ❌ Anti-Pattern to Avoid:
-Do **NOT** duplicate `main.tf` files into separate `dev/`, `staging/`, and `prod/` subfolders. This causes 3x code duplication and leads to merge drift.
-
-### ✅ Gold Standard Pattern:
 Write `main.tf` **once** per layer and parameterize environments via `.tfvars` and `.hcl` backend configuration files:
 
 ```text
@@ -57,10 +53,6 @@ Write `main.tf` **once** per layer and parameterize environments via `.tfvars` a
 ├── providers.tf                # AWS provider setup
 ├── variables.tf                # Variable definitions
 └── modules/                    # Reusable Submodules
-    ├── eks/
-    ├── amazonmq/
-    ├── sftp/
-    └── databases/
 ```
 
 ---
@@ -91,12 +83,3 @@ module "eks" {
   node_config = var.node_config
 }
 ```
-
----
-
-## 4. PCI-DSS v4.0 Compliance Safeguards
-
-1. **At-Rest Encryption:** All S3, EFS, RDS, and ElastiCache resources MUST use Customer Managed KMS Keys (CMK) with 365-day rotation.
-2. **In-Transit Encryption:** Enforce TLS 1.3 / 1.2 on all ALBs, API Gateways, and CloudFront distributions.
-3. **Network Isolation:** Workload EC2/EKS nodes MUST live in **Private Subnets** with zero direct Internet IPs.
-4. **WORM Logging:** Centralized CloudTrail and Security Hub logs MUST deliver to an isolated Archive account with S3 Object Lock enabled.

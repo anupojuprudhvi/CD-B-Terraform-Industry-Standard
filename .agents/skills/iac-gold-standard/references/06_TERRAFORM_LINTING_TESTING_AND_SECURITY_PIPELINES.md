@@ -55,21 +55,3 @@ jobs:
         with:
           api_key: ${{ secrets.INFRACOST_API_KEY }}
 ```
-
----
-
-## 3. Pre-Commit Hooks Configuration (`.pre-commit-config.yaml`)
-
-Engineers can enable pre-commit hooks locally to prevent pushing bad code:
-
-```yaml
-repos:
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.96.0
-    hooks:
-      - id: terraform_fmt
-      - id: terraform_validate
-      - id: terraform_tflint
-      - id: terraform_tfsec
-      - id: terraform_checkov
-```
