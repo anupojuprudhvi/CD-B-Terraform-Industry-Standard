@@ -1,0 +1,46 @@
+# ==============================================================================
+# Terraform, State & Plan Files
+# ==============================================================================
+.terraform/
+*.terraform
+*.tfstate
+*.tfstate.backup
+*.terraform.tfstate*
+*.terraform.lock.hcl
+tfplan
+*.tfplan
+tfplan.json
+*_tfplan*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ==============================================================================
+# Secrets & Private Keys
+# ==============================================================================
+*.pem
+*.key
+*.pfx
+
+# ==============================================================================
+# Editor, OS & AI Assistance Files
+# ==============================================================================
+*.swp
+*.bak
+*.log
+.DS_Store
+.vscode/
+.idea/
+MEMORY.md
+memory.md
+.markdownlint.yaml
+
+# ==============================================================================
+# Temporary Files & OS Metadata
+# ==============================================================================
+*.tmp
+*.backup
+Thumbs.db
+desktop.ini
